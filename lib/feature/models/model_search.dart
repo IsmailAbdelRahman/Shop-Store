@@ -1,14 +1,12 @@
 class ModelSearch {
   bool? status;
-  Null? message;
+  void message;
   Data0? data;
-
-
 
   ModelSearch.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data0.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data0.fromJson(json['data']) : null;
   }
 }
 
@@ -19,10 +17,10 @@ class Data0 {
   int? from;
   int? lastPage;
   String? lastPageUrl;
-  Null? nextPageUrl;
+  void nextPageUrl;
   String? path;
   int? perPage;
-  Null? prevPageUrl;
+  void prevPageUrl;
   int? to;
   int? total;
 
@@ -31,7 +29,7 @@ class Data0 {
     if (json['data'] != null) {
       data0 = <Data1>[];
       json['data'].forEach((v) {
-        data0!.add(new Data1.fromJson(v));
+        data0!.add(Data1.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -49,9 +47,9 @@ class Data0 {
 
 class Data1 {
   int? id;
-  dynamic ? price;
-  dynamic ? oldPrice;
-  dynamic ? discount;
+  dynamic price;
+  dynamic oldPrice;
+  dynamic discount;
   String? image;
   String? name;
   String? description;

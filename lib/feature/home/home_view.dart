@@ -47,7 +47,7 @@ class HomeView extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  navigatorTo(context, SearchView());
+                  navigatorTo(context, const SearchView());
                 },
                 icon: const Icon(
                   Icons.search,

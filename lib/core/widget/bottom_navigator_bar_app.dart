@@ -24,32 +24,6 @@ class BottomNavigationBarView extends StatelessWidget {
         builder: (context, state) {
           ShopCubit cubitSh = ShopCubit.get(context);
           return Scaffold(
-            /*
-
-         bottomNavigationBar: CurvedNavigationBar(
-            items:  const [
-              Icon(Icons.category_outlined),
-              Icon(Icons.favorite),
-              Icon(Icons.home),
-              Icon(Icons.settings)
-
-            ],index:CubitSh.indextBottomNBar , onTap: (int){  CubitSh.FunChangeIndextBottomNBar(int);
-
-    //  CubitSh.changeBottnBArr();
-  */ /*        if (CubitSh.indextBottomNBar  ==  1){
-            ShopCubit.get(context).fav;
-            print("get-fav");
-
-          }*/ /*
-              },
-            backgroundColor: Colors.blue.withOpacity(0.10),
-            color: Colors.white,
-
-          ),
-
-
-          */
-
             bottomNavigationBar: BottomNavigationBar(
               elevation: 10,
               currentIndex: cubitSh.indextBottomNBar,

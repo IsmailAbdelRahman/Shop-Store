@@ -1,83 +1,80 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-
 
 //api   application programming interface
 
-class DioHelper{
+class DioHelper {
+  static Dio? dio;
 
-  static Dio? dio  ;
-
- static Init(){
-
-   dio= Dio( BaseOptions(baseUrl:   'https://student.valuxapps.com/api/' , receiveDataWhenStatusError:  true ,/*receiveTimeout: 500 ,*/
-  // headers: {  'Content-Type' : 'application/json'}
-       ));
-
- }
-
- static Future<Response> get ( { required String  url ,  Map<String,dynamic>  ? queryParameter, String lang ='ar' , String ? token  })  async{
-   dio!.options.headers={
-     'lang':lang, 'Authorization':token ?? '' ,   'Content-Type' : 'application/json'
-   };
-
-  return await dio!.get(url,queryParameters:queryParameter );
+  static init() {
+    dio = Dio(BaseOptions(
+      baseUrl: 'https://student.valuxapps.com/api/',
+      receiveDataWhenStatusError: true, /*receiveTimeout: 500 ,*/
+      // headers: {  'Content-Type' : 'application/json'}
+    ));
   }
 
-
-
-
-  static Future<Response> PostData ( { required String  url ,  Map<String,dynamic>  ? queryParameter   , required Map Data   , String lang ='ar' , String ? token })  async{
-                  dio!.options.headers={
-                    'lang':lang, 'Authorization':token ?? ' ' ,  'Content-Type' : 'application/json'
-                  };
-    return await dio!.post( url  , queryParameters:  queryParameter , data:Data  );
-  }
-
-
-  static Future<Response> PutData ( { required String  url ,  Map<String,dynamic>  ? queryParameter   , required Map Data   , String lang ='ar' , String ? token })  async{
-    dio!.options.headers={
-      'lang':lang, 'Authorization':token ?? ' ' ,  'Content-Type' : 'application/json'
+  static Future<Response> get(
+      {required String url,
+      Map<String, dynamic>? queryParameter,
+      String lang = 'ar',
+      String? token}) async {
+    dio!.options.headers = {
+      'lang': lang,
+      'Authorization': token ?? '',
+      'Content-Type': 'application/json'
     };
-    return await dio!.put( url  , queryParameters:  queryParameter , data:Data  );
+
+    return await dio!.get(url, queryParameters: queryParameter);
   }
 
-///post == put
-
-
-}
-
-class dioWeather {
-
-  static  Dio?   dioWeatherC ;
-
-  static FunInitaltionDio (){
-
-    dioWeatherC =Dio(BaseOptions(baseUrl:  "http://api.weatherapi.com/v1/"       , receiveDataWhenStatusError: true ));
+  static Future<Response> postData(
+      {required String url,
+      Map<String, dynamic>? queryParameter,
+      required Map data,
+      String lang = 'ar',
+      String? token}) async {
+    dio!.options.headers = {
+      'lang': lang,
+      'Authorization': token ?? ' ',
+      'Content-Type': 'application/json'
+    };
+    return await dio!.post(url, queryParameters: queryParameter, data: data);
   }
 
-
-
- static Future <Response> getWeather ( {String ? Url , Map<String,dynamic>  ? queryParameter  }) async{
-
-   return await dioWeatherC!.get("${Url}.json",  queryParameters: queryParameter );
-
-
+  static Future<Response> putData(
+      {required String url,
+      Map<String, dynamic>? queryParameter,
+      required Map data,
+      String lang = 'ar',
+      String? token}) async {
+    dio!.options.headers = {
+      'lang': lang,
+      'Authorization': token ?? ' ',
+      'Content-Type': 'application/json'
+    };
+    return await dio!.put(url, queryParameters: queryParameter, data: data);
   }
 
-
-/*void getWeather1 ()  {
-
-       dioWeatherC!.get("", ).then((value) => {
-
-
-    });
-
-
-  }*/
-
-
+  ///post == put
 }
 
 
 
+
+// class DioWeather {
+//   static Dio? dioWeatherC;
+
+//   static funInitaltionDio() {
+//     dioWeatherC = Dio(BaseOptions(
+//         baseUrl: "http://api.weatherapi.com/v1/",
+//         receiveDataWhenStatusError: true));
+//   }
+
+//   static Future<Response> getWeather(
+//       {String? url, Map<String, dynamic>? queryParameter}) async {
+//     return await dioWeatherC!.get("$url.json", queryParameters: queryParameter);
+//   }
+
+
+  
+// }

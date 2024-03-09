@@ -1,12 +1,15 @@
-const String Login = 'login';
-const String Home = 'home';
-const get_category = 'categories';
-const Post_Favorite = "favorites";
-const Get_Favorites = "profile";
-const Post_LogOut = "logout";
-const Post_Register = "register";
-const Update_Profile = "update-profile";
-const Search = "products/search";
 //dynamic   Tokin1  = Sh_Preferences.getDataLoginSharedprefernec(key: 'token');
 
-dynamic tokin1 = "";
+class AppConstans {
+  static dynamic tokin1 = "";
+
+  static const login = 'login';
+  static const home = 'home';
+  static const getCategory = 'categories';
+  static const postFavorite = "favorites";
+  static const getFavorites = "profile";
+  static const postLogOut = "logout";
+  static const postRegister = "register";
+  static const updateProfile = "update-profile";
+  static const search = "products/search";
+}

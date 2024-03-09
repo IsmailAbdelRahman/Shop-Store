@@ -2,21 +2,28 @@ import 'package:appstore/core/utils/network/dio_helper.dart';
 import 'package:appstore/core/utils/end_Points.dart';
 import 'package:appstore/feature/models/model_search.dart';
 import 'package:appstore/feature/search/presentation/manger/cubit_search/state_search.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CubitSearch extends Cubit<StateSearch> {
-  CubitSearch() : super(initialStateSearch());
+  CubitSearch() : super(InitialStateSearch());
 
   static CubitSearch get(context) => BlocProvider.of(context);
 
-  ModelSearch? modelSearch;
+  TextEditingController textController = TextEditingController();
+  GlobalKey<FormState> globallKey = GlobalKey<FormState>();
+
+  // ModelSearch? modelSearch;
   void postSearch({String text = " "}) {
-    DioHelper.PostData(url: Search, Data: {"text": text}, token: tokin1)
+    DioHelper.postData(
+            url: AppConstans.search,
+            data: {"text": text},
+            token: AppConstans.tokin1)
         .then((value) {
       //   print(value.data);
 
-      modelSearch = ModelSearch.fromJson(value.data);
-      emit(SeccessfullSearch());
+      // modelSearch = ModelSearch.fromJson(value.data);
+      emit(SeccessfullSearch(ModelSearch.fromJson(value.data)));
     }).catchError((e) {
       //  print(e);
       emit(ErrorSearch());
