@@ -149,10 +149,10 @@ class LoginShopState extends StatelessWidget {
                           text: 'EnterPasswd',
                           return1null: 'Enter Passwd place',
                           prefixIconLeft: Icons.password_sharp,
-                          passwd: Cubit.passwd,
-                          prefixIconRight: Cubit.icoVi,
+                          passwd: cubit.passwd,
+                          prefixIconRight: cubit.icoVi,
                           fun: () {
-                            Cubit.ShangeSufixRightVissPasswd();
+                            cubit.shangeSufixRightVissPasswd();
                           },
                         ),
                         ConditionalBuilder(
@@ -160,9 +160,9 @@ class LoginShopState extends StatelessWidget {
                           builder: (context) => ElevatedButton(
                               onPressed: () {
                                 if (globalForm.currentState!.validate()) {
-                                  Cubit.UserLogin(
+                                  cubit.userLogin(
                                       email: textEdControllerUSer.text,
-                                      Passwd: TextEdControllerPass.text);
+                                      passwd: textEdControllerPass.text);
                                 }
                               },
                               child: const Text('Login')),

@@ -1,5 +1,5 @@
 import 'package:appstore/core/utils/component.dart';
-import 'package:appstore/feature/models/fa.dart';
+import 'package:appstore/feature/models/model_search.dart';
 import 'package:appstore/feature/search/presentation/manger/cubit_search/cubit_search.dart';
 import 'package:appstore/feature/search/presentation/manger/cubit_search/state_search.dart';
 import 'package:flutter/material.dart';

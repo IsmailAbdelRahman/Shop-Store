@@ -230,7 +230,7 @@ class ShopCubit extends Cubit<StateLoginShop> {
       required String phone,
       required String password}) {
     DioHelper.PostData(url: Post_Register, Data: {
-      "ne": name,
+      "name": name,
       "phone": phone,
       "email": email,
       "password": password

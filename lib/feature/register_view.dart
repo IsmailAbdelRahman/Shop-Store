@@ -1,17 +1,20 @@
+import 'package:appstore/core/utils/component.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/cubit.dart';
+import 'package:appstore/feature/Shareit/bloc/cubit_appstore/state.dart';
+import 'package:appstore/feature/login_shoping.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegistorView extends StatelessWidget {
   bool passwd = true;
-  var TextEdControllerUSer = TextEditingController();
-  var TextEdControllerPass = TextEditingController();
-  var TextEdControllerName = TextEditingController();
-  var TextEdControllerPassword = TextEditingController();
-  var TextEdControllerPhone = TextEditingController();
-  TextEditingController TextEdController = TextEditingController();
-  var GlobalForm = GlobalKey<FormState>();
+  var textEdControllerUSer = TextEditingController();
+  var textEdControllerPass = TextEditingController();
+  var textEdControllerName = TextEditingController();
+  var textEdControllerPassword = TextEditingController();
+  var textEdControllerPhone = TextEditingController();
+  TextEditingController textEdController = TextEditingController();
+  var globalForm = GlobalKey<FormState>();
 
   RegistorView({super.key});
 
@@ -19,14 +22,14 @@ class RegistorView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, StateLoginShop>(listener: (context, state) {
       state is SuccessRegisterState
-          ? Tost(state.message.toString(),
-              state.state! ? colorenum.correct : colorenum.error)
+          ? tost(state.message.toString(),
+              state.state! ? Colorenum.correct : Colorenum.error)
           : null;
     }, builder: (context, state) {
-      ShopCubit Cubit = ShopCubit.get(context);
+      ShopCubit cubit = ShopCubit.get(context);
 
       return Form(
-        key: GlobalForm,
+        key: globalForm,
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(30),
@@ -36,7 +39,7 @@ class RegistorView extends StatelessWidget {
               actions: [
                 IconButton(
                   onPressed: () {
-                    NavigatorTo(context, LoginShopState());
+                    navigatorTo(context, LoginShopState());
                   },
                   icon: const Icon(Icons.arrow_back_outlined,
                       textDirection: TextDirection.ltr),
@@ -78,29 +81,29 @@ class RegistorView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Custom_textFormField(
-                          Controll: TextEdControllerName,
+                        customTextFormField(
+                          controll: textEdControllerName,
                           text: 'name',
                           return1null: 'Enter Name place',
                         ),
-                        Custom_textFormField(
-                            Controll: TextEdControllerUSer,
+                        customTextFormField(
+                            controll: textEdControllerUSer,
                             text: 'Enter Email',
                             return1null: 'Enter Email place',
                             prefixIconLeft: Icons.email_outlined),
-                        Custom_textFormField(
-                          Controll: TextEdControllerPass,
+                        customTextFormField(
+                          controll: textEdControllerPass,
                           text: 'EnterPasswd',
                           return1null: 'Enter Passwd place',
                           prefixIconLeft: Icons.password_sharp,
-                          passwd: Cubit.passwd,
-                          prefixIconRight: Cubit.icoVi,
+                          passwd: cubit.passwd,
+                          prefixIconRight: cubit.icoVi,
                           fun: () {
-                            Cubit.ShangeSufixRightVissPasswd();
+                            cubit.shangeSufixRightVissPasswd();
                           },
                         ),
-                        Custom_textFormField(
-                          Controll: TextEdControllerPhone,
+                        customTextFormField(
+                          controll: textEdControllerPhone,
                           text: 'Phone',
                           return1null: 'Enter Phone place',
                         ),
@@ -108,12 +111,12 @@ class RegistorView extends StatelessWidget {
                           condition: state is! LoadRegister,
                           builder: (context) => ElevatedButton(
                               onPressed: () {
-                                if (GlobalForm.currentState!.validate()) {
-                                  Cubit.Register(
-                                      Name: TextEdControllerName.text,
-                                      Phone: TextEdControllerPhone.text,
-                                      Email: TextEdControllerUSer.text,
-                                      Password: TextEdControllerPass.text);
+                                if (globalForm.currentState!.validate()) {
+                                  cubit.register(
+                                      name: textEdControllerName.text,
+                                      phone: textEdControllerPhone.text,
+                                      email: textEdControllerUSer.text,
+                                      password: textEdControllerPass.text);
                                 }
                               },
                               child: const Text('Register')),
@@ -132,7 +135,7 @@ class RegistorView extends StatelessWidget {
                         const Text('Don`t have an account'),
                         TextButton(
                             onPressed: () =>
-                                NavigatorTo(context, RegistorView()),
+                                navigatorTo(context, RegistorView()),
                             child: const Text('Register'))
                       ],
                     ),
