@@ -3,7 +3,7 @@ import 'package:appstore/feature/Shareit/bloc/cubit_appstore/state.dart';
 import 'package:appstore/feature/card.dart';
 import 'package:appstore/feature/category_view.dart';
 import 'package:appstore/feature/get_favorite.dart';
-import 'package:appstore/feature/home/home_view.dart';
+import 'package:appstore/feature/home/presentation/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

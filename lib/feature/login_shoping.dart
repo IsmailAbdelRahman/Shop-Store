@@ -4,7 +4,7 @@ import 'package:appstore/core/utils/shared_preferences.dart';
 import 'package:appstore/core/widget/bottom_navigator_bar_app.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/cubit.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/state.dart';
-import 'package:appstore/feature/home/home_view.dart';
+import 'package:appstore/feature/home/presentation/view/home_view.dart';
 import 'package:appstore/feature/register_view.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 
