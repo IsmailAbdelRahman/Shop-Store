@@ -1,8 +1,8 @@
-import 'package:appstore/feature/models/model_search.dart';
+import 'package:appstore/feature/search/data/model/model_search.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearchView extends StatelessWidget {
-  final Data1 data;
+  final Datalist data;
   const CustomSearchView({super.key, required this.data});
 
   @override

@@ -1,35 +1,35 @@
 class ModelSearch {
   bool? status;
-  void message;
-  Data0? data;
+  dynamic message;
+  Data? data;
 
   ModelSearch.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? Data0.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 }
 
-class Data0 {
+class Data {
   int? currentPage;
-  List<Data1>? data0;
+  List<Datalist>? dataList;
   String? firstPageUrl;
   int? from;
   int? lastPage;
   String? lastPageUrl;
-  void nextPageUrl;
+  dynamic nextPageUrl;
   String? path;
   int? perPage;
-  void prevPageUrl;
+  dynamic prevPageUrl;
   int? to;
   int? total;
 
-  Data0.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      data0 = <Data1>[];
+      dataList = <Datalist>[];
       json['data'].forEach((v) {
-        data0!.add(Data1.fromJson(v));
+        dataList!.add(Datalist.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -45,7 +45,7 @@ class Data0 {
   }
 }
 
-class Data1 {
+class Datalist {
   int? id;
   dynamic price;
   dynamic oldPrice;
@@ -57,7 +57,7 @@ class Data1 {
   bool? inFavorites;
   bool? inCart;
 
-  Data1.fromJson(Map<String, dynamic> json) {
+  Datalist.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     price = json['price'];
     oldPrice = json['old_price'];

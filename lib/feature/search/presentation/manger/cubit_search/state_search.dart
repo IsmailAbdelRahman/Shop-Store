@@ -1,4 +1,4 @@
-import 'package:appstore/feature/models/model_search.dart';
+import 'package:appstore/feature/search/data/model/model_search.dart';
 
 abstract class StateSearch {}
 
