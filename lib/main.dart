@@ -5,7 +5,7 @@ import 'package:appstore/core/utils/shared_preferences.dart';
 import 'package:appstore/core/widget/bottom_navigator_bar_app.dart';
 import 'package:appstore/feature/Shareit/bloc/Observer.dart';
 import 'package:appstore/feature/boarding/presentation/view/boarding_screen.dart';
-import 'package:appstore/feature/login_shoping.dart';
+import 'package:appstore/feature/registor_login/persentation/view/login_shoping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,15 +22,14 @@ void main() async {
   bool? dark = ShPreferences.getData(key: 'dark') ?? true; //
   bool? saveSkipBool =
       ShPreferences.getDataLoginSharedprefernec(key: 'isBoarding');
-  AppConstans.tokin1 = ShPreferences.getDataLoginSharedprefernec(
-      key: 'token'); // اول مره بتبقا بنل
+  AppConstans.tokin1 = ShPreferences.getDataLoginSharedprefernec(key: 'token');
   ////////////////////////////////////////////////////////////////////Page
   Widget widget = OnBoarding();
   if (saveSkipBool != null) {
     if (AppConstans.tokin1 != null) {
       widget = const BottomNavigationBarView();
     } else {
-      widget = LoginShopState();
+      widget = const LoginShopState();
     }
   } else {
     widget = OnBoarding();

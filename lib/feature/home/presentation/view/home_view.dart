@@ -1,7 +1,7 @@
 import 'package:appstore/core/utils/component.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/cubit.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/state.dart';
-import 'package:appstore/feature/models/classSch.dart';
+import 'package:appstore/feature/registor_login/data/model/model_login.dart';
 import 'package:appstore/feature/models/parthing_category.dart';
 import 'package:appstore/feature/search/presentation/view/shearch_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -17,32 +17,21 @@ class HomeView extends StatelessWidget {
     return BlocConsumer<ShopCubit, StateLoginShop>(listener: (context, state) {
       if (state is ChangeSeccesfulColorFavoriteState) {
         if (!state.stateF!) {
-          ///لو بتساوى فولس
           tost("لم يتم تنفيذ طلبك", Colorenum.error);
         } else {
-          /// غير كدا هتبقا ترو طيب اعرضلى ال مكتوب ف الماسج سواء اضافه او حذف
           tost(state.message.toString(), Colorenum.correct);
         }
       }
 
       ////////////////////
-      /*if (state is  ChangeIndextBottomNBar){
-            print( "indext : ${state.indextBottomNBar}");
-          }*/
+
       ///////////////////////////////////
     }, builder: (context, state) {
       ShopCubit cubitSh = ShopCubit.get(context);
       /////////////////////////////// no
-      //  cubitSearch cubitsearch1 = cubitSearch.get(context);
-      /////////////////////
 
-      //    Category_Model  Bal =     Category_Model.forjson(CubitSh.UserCategory(Tokin:Tokin1 ));
-      //     print(Bal.data);
-
-      //    print( CubitSh.ObHomeUser!.data!.Listbanners![0].image.toString());
       return Scaffold(
         appBar: AppBar(
-          //   title: Text('sss : ${ CubitSh.ObHomeUser!.data!.Listbanners![0].image}'),
           title: const Text('Home '),
           actions: [
             IconButton(
@@ -75,11 +64,6 @@ class HomeView extends StatelessWidget {
           fallback: (context) =>
               const Center(child: CircularProgressIndicator()),
         ),
-
-        ///2
-        //   body:  ConditionalBuilder(builder: (context)=>Carouse( CubitSh.ObHomeUser!.data!.Listbanners!)   ,condition:CubitSh.ObHomeUser != null  ,fallback: (context)=>Center(child: CircularProgressIndicator()), ) ,
-        ///3
-        // body:  ConditionalBuilder(builder: (context)=>Carouse(    CubitSh.ObHomeUser!.data!.Listbanners!.map((e) => Image(image: NetworkImage(e.image.toString()))).toList()   )   ,condition:CubitSh.ObHomeUser != null  ,fallback: (context)=>Center(child: CircularProgressIndicator()), ) ,
       );
     });
   }
@@ -92,7 +76,7 @@ class HomeView extends StatelessWidget {
         SizedBox(
           height: 120,
           child: CarouselSlider(
-              items: s1.data!.Listbanners!
+              items: s1.data!.listbanners!
                   .map((e) => Image(image: NetworkImage(e.image.toString())))
                   .toList(),
               options: CarouselOptions(
@@ -136,14 +120,6 @@ class HomeView extends StatelessWidget {
           ),
         ),
 
-        /*       Expanded(
-          child: GridView.count(
-              crossAxisCount:2,
-          mainAxisSpacing: 21,
-          crossAxisSpacing: 2,
-          children: List.generate( s1.data!.Listbanners!.length, (index) =>    Image(image: NetworkImage(s1.data!.Listproducts![index].Image.toString()  ) , height: 100,width: 100,  fit: BoxFit.fitHeight,)  )      ),
-        )*/
-        ///////////////3
         Expanded(
             flex: 5,
             child: Container(
@@ -157,16 +133,16 @@ class HomeView extends StatelessWidget {
                 shrinkWrap: true,
                 childAspectRatio: 1 / 1.6,
                 children: List.generate(
-                    s1.data!.Listproducts!.length,
+                    s1.data!.listproducts!.length,
                     (index) =>
-                        funImageIndext(s1.data!.Listproducts![index], context)),
+                        funImageIndext(s1.data!.listproducts![index], context)),
               ),
             ))
       ],
     );
   }
 
-  Widget funImageIndext(productMod imageForIndext, context) {
+  Widget funImageIndext(ProductMod imageForIndext, context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -178,7 +154,7 @@ class HomeView extends StatelessWidget {
                 height: 180,
                 width: 300,
                 child: Image(
-                  image: NetworkImage(imageForIndext.Image.toString()),
+                  image: NetworkImage(imageForIndext.image.toString()),
                   fit: BoxFit.fitHeight,
                 )),
             Container(
@@ -235,22 +211,8 @@ class HomeView extends StatelessWidget {
                             : Colors.grey,
                     child: IconButton(
                       onPressed: () {
-                        // ShopCubit.get(context).USerHome(Tokin: Tokin1);
-                        //    print( " Output Colors =>>${ShopCubit.get(context).fav[ImageForIndext.id] }");
                         ShopCubit.get(context)
                             .postChangeColorFavorite(imageForIndext.id!);
-
-                        // print(imageForIndext.id);
-                        //print(ShopCubit.get(context).fav[imageForIndext.id]);
-
-                        //    print(Tokin1);
-                        //  print(ImageForIndext.id);
-                        //   print(ShopCubit.get(context).fav  );
-
-                        //  print(  ShopCubit.get(context).PostChange_ColorFavorite(ImageForIndext.id!));
-                        // print( " =? status ${  ShopCubit.get(context).change_favoritesModels!.Status}");
-                        //   print(ShopCubit.get(context).fav[ImageForIndext.id]);
-                        //   print(ShopCubit.get(context).fav);
                       },
                       icon: const Icon(
                         Icons.favorite_outline,
@@ -267,76 +229,4 @@ class HomeView extends StatelessWidget {
       ],
     );
   }
-
-////////////////////////////////////////////////////////////////////////
-  ///2
-/*  Widget Carouse(    List<bannerMod>  s1   ){
-
-
-  return  CarouselSlider(items: s1.map((e) => Image(image: NetworkImage(e.image.toString()))).toList(), options: CarouselOptions());
-
- //   return  CarouselSlider(items: s1.data!.Listbanners!.map((e) => Image(image: NetworkImage(e.image.toString()))).toList() , options: CarouselOptions());
-
-
-
-  }*/
-////////////////////////////////////////////////////////////////////////
-  ///3
-/*  Widget Carouse(   List<Widget> s1   ){
-
-
-    return  CarouselSlider(items: s1, options: CarouselOptions(
-
-
-    ));
-
-    //   return  CarouselSlider(items: s1.data!.Listbanners!.map((e) => Image(image: NetworkImage(e.image.toString()))).toList() , options: CarouselOptions());
-
-  }*/
-/////
-////////////////////////////////////////////////////////////////////////
-  ///fu
-
-/* Widget GridViewImage ( List<productMod> s1){
-
-  return Container(
-    width:double.maxFinite, height: 400,
-
-    child: GridView.count(crossAxisCount:2,
-     // physics: NeverScrollableScrollPhysics(),
-    shrinkWrap: true,
-    crossAxisSpacing: 1,
-    mainAxisSpacing: 5,
-    semanticChildCount: 12,
-    padding: EdgeInsets.all(5),
-    childAspectRatio: 1 /1.0,
-    scrollDirection: Axis.vertical,
-      children:  s1.map((e) =>  Image(image: NetworkImage(e.Image.toString()  ) ,  fit: BoxFit.fitHeight,)  ).toList(),
-    ),
-  );
-
-}*/
-////////////////////////////////////////////////////////////////////////
-/*
-  Widget GridViewImage (    s1  ){
-
-    return Container(
-      width:double.maxFinite, height: 400,
-
-      child: GridView.count(crossAxisCount:2,
-        // physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        crossAxisSpacing: 1,
-        mainAxisSpacing: 5,
-        semanticChildCount: 12,
-        padding: const EdgeInsets.all(5),
-        childAspectRatio: 1 /1.0,
-        scrollDirection: Axis.vertical,
-        children:  s1.map((e) =>  Image(image: NetworkImage(e.Image.toString()  ) ,  fit: BoxFit.fitHeight,)  ).toList(),
-      ),
-    );
-
-  }*/
-
-/////////
 }

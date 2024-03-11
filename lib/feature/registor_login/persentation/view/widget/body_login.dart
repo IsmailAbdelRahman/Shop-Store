@@ -1,55 +1,53 @@
 import 'package:appstore/core/utils/component.dart';
+import 'package:appstore/core/utils/end_Points.dart';
+import 'package:appstore/core/utils/shared_preferences.dart';
+import 'package:appstore/core/widget/bottom_navigator_bar_app.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/cubit.dart';
-import 'package:appstore/feature/Shareit/bloc/cubit_appstore/state.dart';
-import 'package:appstore/feature/login_shoping.dart';
+import 'package:appstore/feature/registor_login/persentation/manger/login_r/lgin_andr_cubit.dart';
+import 'package:appstore/feature/registor_login/persentation/view/register_view.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RegistorView extends StatelessWidget {
-  bool passwd = true;
-  var textEdControllerUSer = TextEditingController();
-  var textEdControllerPass = TextEditingController();
-  var textEdControllerName = TextEditingController();
-  var textEdControllerPassword = TextEditingController();
-  var textEdControllerPhone = TextEditingController();
-  TextEditingController textEdController = TextEditingController();
-  var globalForm = GlobalKey<FormState>();
-
-  RegistorView({super.key});
+class BodyLogin extends StatelessWidget {
+  const BodyLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, StateLoginShop>(listener: (context, state) {
-      state is SuccessRegisterState
-          ? tost(state.message.toString(),
-              state.state! ? Colorenum.correct : Colorenum.error)
-          : null;
+    return BlocConsumer<LoginAndrCubit, LoginAndrState>(
+        listener: (context, state) {
+      if (state is SuccessLoginShopState) {
+        if (state.s2.status!) {
+          ShopCubit.get(context)
+              .uSerHome(tokin: state.s2.data!.token.toString());
+
+          ShPreferences.savesetDataLoginSharedprefernec(
+                  'token', state.s2.data!.token)
+              .then((value) {
+            navigatorTo(context, const BottomNavigationBarView());
+
+            AppConstans.tokin1 = state.s2.data!.token!.toString();
+          });
+
+          tost(state.s2.message.toString(), Colorenum.correct);
+        } else {
+          tost(state.s2.message.toString(), Colorenum.error);
+        }
+      }
     }, builder: (context, state) {
-      ShopCubit cubit = ShopCubit.get(context);
+      LoginAndrCubit cubit = LoginAndrCubit.get(context);
+
+      if (state is LoadingLoginShopState) {
+        cubit.changeFalseanTrue = false;
+      } else if (state is SuccessLoginShopState) {
+        cubit.changeFalseanTrue = true;
+      }
 
       return Form(
-        key: globalForm,
+        key: cubit.globalFormLogin,
         child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(30),
-            child: AppBar(
-              //     elevation: 10,
+          // appBar:AppBar(title: Text('Login')),
 
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    navigatorTo(context, LoginShopState());
-                  },
-                  icon: const Icon(Icons.arrow_back_outlined,
-                      textDirection: TextDirection.ltr),
-                  color: Colors.blue,
-                  alignment: AlignmentDirectional.bottomEnd,
-                )
-              ],
-              backgroundColor: Colors.transparent,
-            ),
-          ),
           body: SingleChildScrollView(
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -66,7 +64,7 @@ class RegistorView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Register',
+                    Text('Login',
                         style: Theme.of(context)
                             .textTheme
                             .displaySmall!
@@ -82,46 +80,37 @@ class RegistorView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         customTextFormField(
-                          controll: textEdControllerName,
-                          text: 'name',
-                          return1null: 'Enter Name place',
-                        ),
-                        customTextFormField(
-                            controll: textEdControllerUSer,
+                            controll: cubit.textEdControllerUSerLogin,
                             text: 'Enter Email',
                             return1null: 'Enter Email place',
                             prefixIconLeft: Icons.email_outlined),
                         customTextFormField(
-                          controll: textEdControllerPass,
+                          controll: cubit.textEdControllerPassLogin,
                           text: 'EnterPasswd',
                           return1null: 'Enter Passwd place',
                           prefixIconLeft: Icons.password_sharp,
-                          passwd: cubit.passwd,
+                          passwd: cubit.passwdS,
                           prefixIconRight: cubit.icoVi,
                           fun: () {
                             cubit.shangeSufixRightVissPasswd();
                           },
                         ),
-                        customTextFormField(
-                          controll: textEdControllerPhone,
-                          text: 'Phone',
-                          return1null: 'Enter Phone place',
-                        ),
                         ConditionalBuilder(
-                          condition: state is! LoadRegister,
+                          condition: state is! LoadingLoginShopState,
                           builder: (context) => ElevatedButton(
                               onPressed: () {
-                                if (globalForm.currentState!.validate()) {
-                                  cubit.register(
-                                      name: textEdControllerName.text,
-                                      phone: textEdControllerPhone.text,
-                                      email: textEdControllerUSer.text,
-                                      password: textEdControllerPass.text);
+                                if (cubit.globalFormLogin.currentState!
+                                    .validate()) {
+                                  cubit.userLogin(
+                                      email:
+                                          cubit.textEdControllerUSerLogin.text,
+                                      passwd:
+                                          cubit.textEdControllerPassLogin.text);
                                 }
                               },
-                              child: const Text('Register')),
-                          fallback: (context) => /*CircularProgressIndicator()*/
-                              const Text("data"),
+                              child: const Text('Login')),
+                          fallback: (context) =>
+                              const CircularProgressIndicator(),
                         ),
                       ],
                     ),
@@ -135,7 +124,7 @@ class RegistorView extends StatelessWidget {
                         const Text('Don`t have an account'),
                         TextButton(
                             onPressed: () =>
-                                navigatorTo(context, RegistorView()),
+                                navigatorTo(context, const RegistorView()),
                             child: const Text('Register'))
                       ],
                     ),

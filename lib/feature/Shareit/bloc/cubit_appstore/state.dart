@@ -1,23 +1,6 @@
-import 'package:appstore/feature/models/classSch.dart';
-
 abstract class StateLoginShop {}
 
 class InInitialLogState extends StateLoginShop {}
-
-class LoadingLoginShopState extends StateLoginShop {}
-
-class SuccessLoginShopState extends StateLoginShop {
-  final ShopLoginModel s2;
-  SuccessLoginShopState(this.s2);
-}
-
-class ErrorShopState extends StateLoginShop {
-  final String error;
-
-  ErrorShopState(this.error);
-}
-
-class ChangePasswdAndVisi extends StateLoginShop {}
 
 class ChangeIndextBottomNBar extends StateLoginShop {
   int indextBottomNBar;
@@ -63,20 +46,6 @@ class SeccessfullGetProfile extends StateLoginShop {
 }
 
 class ErrorGetProfile extends StateLoginShop {}
-
-class SeccessfullLogOut extends StateLoginShop {}
-
-class ErrorLogOut extends StateLoginShop {}
-
-class SuccessRegisterState extends StateLoginShop {
-  bool? state;
-  String? message;
-  SuccessRegisterState(this.state, this.message);
-}
-
-class LoadRegister extends StateLoginShop {}
-
-class ErrorRegister extends StateLoginShop {}
 
 class SuccessUpdateProfileState extends StateLoginShop {
   bool? state;

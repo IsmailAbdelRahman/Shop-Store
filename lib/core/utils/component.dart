@@ -1,6 +1,6 @@
 import 'package:appstore/core/utils/themes/app_assets.dart';
 import 'package:appstore/core/utils/shared_preferences.dart';
-import 'package:appstore/feature/login_shoping.dart';
+import 'package:appstore/feature/registor_login/persentation/view/login_shoping.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

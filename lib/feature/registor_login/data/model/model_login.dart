@@ -1,17 +1,12 @@
-import 'dart:ui';
-
 class ShopLoginModel {
   bool? status;
   String? message;
   USerData? data;
 
   ShopLoginModel.formJson({required Map<String, dynamic> josn}) {
-// بفرغ ماب وبسند كل محتوه فيها وحده لل صفات ال فوق
     status = josn['status'];
     message = josn['message'];
-    data = josn['data'] != null
-        ? USerData.formJosn(josn['data'])
-        : null; // دي برضو عباره عن ماب عاوز افرغها واسندها لصفات بالتالي اعملها كلاس وحدها
+    data = josn['data'] != null ? USerData.formJosn(josn['data']) : null;
   }
 }
 
@@ -50,49 +45,49 @@ class HomeUser {
 }
 
 class DataUser {
-  List<bannerMod>? Listbanners = [];
-  List<productMod>? Listproducts = [];
+  List<BannerMod>? listbanners = [];
+  List<ProductMod>? listproducts = [];
   DataUser.ofJson(Map<String, dynamic> mapdata) {
     mapdata['banners'].forEach((elemint) {
-      Listbanners!.add(bannerMod.ofJson(elemint));
+      listbanners!.add(BannerMod.ofJson(elemint));
     });
     /////
     mapdata['products'].forEach((elemint) {
-      Listproducts!.add(productMod.ofJson(elemint));
+      listproducts!.add(ProductMod.ofJson(elemint));
     });
   }
 }
 
 /////////////////
 
-class bannerMod {
+class BannerMod {
   int? id;
   String? image;
 
-  bannerMod.ofJson(Map<String, dynamic> data) {
+  BannerMod.ofJson(Map<String, dynamic> data) {
     id = data['id'];
     image = data['image'];
   }
 }
 
-class productMod {
+class ProductMod {
   int? id;
   dynamic price;
   dynamic oldprice;
   dynamic discount;
   String? name;
-  String? Image;
-  bool? in_cart;
-  bool? in_favorites;
+  String? image;
+  bool? incart;
+  bool? infavorites;
 
-  productMod.ofJson(Map<String, dynamic> data) {
+  ProductMod.ofJson(Map<String, dynamic> data) {
     id = data['id'];
     price = data['price'];
     oldprice = data['old_price'];
     discount = data['discount'];
     name = data['name'];
-    Image = data['image'];
-    in_favorites = data['in_favorites'];
-    in_cart = data['in_cart'];
+    image = data['image'];
+    infavorites = data['in_favorites'];
+    incart = data['in_cart'];
   }
 }

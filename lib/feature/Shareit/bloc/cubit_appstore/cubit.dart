@@ -2,15 +2,14 @@ import 'package:appstore/core/utils/network/dio_helper.dart';
 import 'package:appstore/core/utils/end_Points.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/state.dart';
 import 'package:appstore/feature/models/change_favorites.dart';
-import 'package:appstore/feature/models/classSch.dart';
+import 'package:appstore/feature/registor_login/data/model/model_login.dart';
 import 'package:appstore/feature/models/fa.dart';
-import 'package:appstore/feature/models/get_Profile.dart';
-import 'package:appstore/feature/models/hendel_get_weather.dart';
-import 'package:appstore/feature/models/models_register.dart';
+import 'package:appstore/feature/models/get_profile.dart';
+
 import 'package:appstore/feature/models/models_update_profile.dart';
 import 'package:appstore/feature/models/parthing_category.dart';
 import 'package:appstore/feature/models/parthing_get_favorites.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShopCubit extends Cubit<StateLoginShop> {
@@ -23,12 +22,8 @@ class ShopCubit extends Cubit<StateLoginShop> {
 
 //////////////////////////////////////
   int t11 = 5;
-  bool changeFalseanTrue = true;
-  String s1 = ' Error';
-  bool passwd = true;
-  IconData icoVi = Icons.visibility_off;
 
-  ShopLoginModel? s2;
+  String s1 = ' Error';
 
   void funChangeIndextBottomNBar(int indext) {
     indextBottomNBar = indext;
@@ -42,38 +37,8 @@ class ShopCubit extends Cubit<StateLoginShop> {
       getProfile();
     }
 
-    /*else
-        if(indextBottomNBar ==2  ){
-          USerHome();
-          print("homeuser");
-        }*/
-
     emit(ChangeIndextBottomNBar(indextBottomNBar));
     //   print(  'ChangeIndextBottomNBar :$indextBottomNBar' );
-  }
-
-  void shangeSufixRightVissPasswd() {
-    passwd = !passwd;
-    passwd ? icoVi = Icons.visibility_off : icoVi = Icons.visibility;
-
-    emit(ChangePasswdAndVisi());
-  }
-
-  userLogin({required String email, required String passwd}) {
-    emit(LoadingLoginShopState());
-    return DioHelper.postData(
-        url: AppConstans.login,
-        data: {'email': email, 'password': passwd}).then((value) {
-      // s1 =value.data['message']; //صيغه الماب دا الكي انا عاوز الكي ال اسمو مسيج من الماب
-      s2 = ShopLoginModel.formJson(josn: value.data);
-//     throw('');
-      emit(SuccessLoginShopState(s2!));
-      //   print(s2!.data!.token);
-
-      //    print( value.data[message] );
-    }).catchError((er) {
-      emit(ErrorShopState(er.toString()));
-    });
   }
 
 ///////////////////////////////
@@ -89,28 +54,9 @@ class ShopCubit extends Cubit<StateLoginShop> {
       // print(value.data);
       obHomeUser = HomeUser.ofJson(value.data);
 
-/*
-      ObHomeUser!.data!.Listproducts!.forEach((element) {
-
-        print(element.in_favorites);
-      });
-*/
-
-      for (var element in obHomeUser!.data!.Listproducts!) {
-        fav.addAll({element.id!: element.in_favorites!});
-
-        //     print(   " ${element.id}   = > ${element.in_favorites}");
-
-        //  print (fav.toString());
-/*          if (element.id ==53)
-          return  fav.addAll( {  element.id! : true  });
-          fav.addAll( {  element.id! : element.in_favorites   });*/
+      for (var element in obHomeUser!.data!.listproducts!) {
+        fav.addAll({element.id!: element.infavorites!});
       }
-      //print("=== ?  fa v ${fav}");
-
-      //   print(ObHomeUser!.data!.Listbanners![0].image);
-
-      //  print(value.data);
 
       emit(HomeUSuccessState());
     }).catchError((e) {
@@ -174,20 +120,12 @@ class ShopCubit extends Cubit<StateLoginShop> {
             token: AppConstans.tokin1)
         .then((value) {
       changeFavoritesModels = ChangeFavoritesModels(value.data);
-      //  print(  "  =>>>> ${value.data}");
-      /// هل كان ممكن انى اعتمد ع الستيتس ال جيالى
-      /// change_favoritesModels!.Status
-      /// علشان اغير ف لون الايقون  ب قال مكنت اعمل كدا
-      /// بلسن ع اليوزمود  وباخد منه الاى دى  وبديه الماب ال هتدينى القيمه بناء ع الكي ال ادتهولها
-      ///ShopCubit.get(context).fav[ImageForIndext.id];
-      ///لا ليه لانى الستيتس ال جايه بتيجي بترو ديمن ف  حاله اذا ضفت للفيفريد او مسحت منها
+
       if (changeFavoritesModels!.status! == false) {
         fav[idFavorites] = !fav[idFavorites]!;
       } else {
         getFav();
       }
-      //  print( change_favoritesModels!.Status );
-      // print(change_favoritesModels!.message);
 
       emit(ChangeSeccesfulColorFavoriteState(
           stateF: changeFavoritesModels!.status,
@@ -219,39 +157,6 @@ class ShopCubit extends Cubit<StateLoginShop> {
   }
 
   ////////////////////  غير مستخدمه
-  void logOut() {
-    DioHelper.postData(
-        url: AppConstans.postLogOut,
-        data: {"fcm_token": AppConstans.tokin1}).then((value) {
-      emit(SeccessfullLogOut());
-      //  print(value.data);
-    }).catchError((e) {});
-    emit(ErrorLogOut());
-  }
-
-  ////////////////////////
-  RegisterP? r1;
-  void register(
-      {required String name,
-      required String email,
-      required String phone,
-      required String password}) {
-    DioHelper.postData(url: AppConstans.postRegister, data: {
-      "name": name,
-      "phone": phone,
-      "email": email,
-      "password": password
-    }).then((value) {
-      emit(LoadRegister());
-
-      r1 = RegisterP.fromJson(value.data);
-      // print(value.data);
-      emit(SuccessRegisterState(r1!.status, r1!.message));
-    }).catchError((e) {
-      emit(ErrorRegister());
-      //  print(e);
-    });
-  }
 
   UpdateProfile? updateprofile;
 
