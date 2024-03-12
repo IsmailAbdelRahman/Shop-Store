@@ -1,33 +1,44 @@
+import 'package:appstore/core/utils/networking/api_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 //api   application programming interface
 
 class DioHelper {
+  DioHelper._(); // privade  no  onstractor
   static Dio? dio;
-
+////////////////////////////////////////////? init ///////////
   static init() {
-    dio = Dio(BaseOptions(
-      baseUrl: 'https://student.valuxapps.com/api/',
-      receiveDataWhenStatusError: true, /*receiveTimeout: 500 ,*/
-      // headers: {  'Content-Type' : 'application/json'}
-    ))
-      ..interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        compact: false,
-      ));
+    if (dio == null) {
+      dio = Dio(BaseOptions(
+          baseUrl: ApiConstants.baseUrl,
+          receiveDataWhenStatusError: true,
+          receiveTimeout: const Duration(seconds: 30),
+          connectTimeout: const Duration(seconds: 30)));
+      addDioInterceptor();
+    } else {
+      return dio;
+    }
   }
 
+  static void addDioInterceptor() {
+    dio?.interceptors.add(PrettyDioLogger(
+      requestHeader: true,
+      requestBody: true,
+      responseBody: true,
+      responseHeader: false,
+      compact: false,
+    ));
+  }
+
+////////////////////////////////////////////// ? get /////////////
   static Future<Response> get(
       {required String url,
       Map<String, dynamic>? queryParameter,
-      String lang = 'ar',
+      String? lang,
       String? token}) async {
     dio!.options.headers = {
-      'lang': lang,
+      'lang': lang ?? ApiConstants.language,
       'Authorization': token ?? '',
       'Content-Type': 'application/json'
     };
@@ -35,28 +46,30 @@ class DioHelper {
     return await dio!.get(url, queryParameters: queryParameter);
   }
 
+//////////////////////////////////////////////? pot /////////
   static Future<Response> postData(
       {required String url,
       Map<String, dynamic>? queryParameter,
       required Map data,
-      String lang = 'ar',
+      String? lang,
       String? token}) async {
     dio!.options.headers = {
-      'lang': lang,
+      'lang': lang ?? ApiConstants.language,
       'Authorization': token ?? ' ',
       'Content-Type': 'application/json'
     };
     return await dio!.post(url, queryParameters: queryParameter, data: data);
   }
 
+//////////////////////////////////////////////////? put //////////
   static Future<Response> putData(
       {required String url,
       Map<String, dynamic>? queryParameter,
       required Map data,
-      String lang = 'ar',
+      String? lang,
       String? token}) async {
     dio!.options.headers = {
-      'lang': lang,
+      'lang': lang ?? ApiConstants.language,
       'Authorization': token ?? ' ',
       'Content-Type': 'application/json'
     };

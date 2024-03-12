@@ -1,7 +1,8 @@
 //dynamic   Tokin1  = Sh_Preferences.getDataLoginSharedprefernec(key: 'token');
 
 class ApiConstants {
-  static const baseUrl = '';
+  static const baseUrl = 'https://student.valuxapps.com/api/';
+  static const language = "ar";
 
   static dynamic tokin1 = "";
 

@@ -2,7 +2,7 @@ import 'package:appstore/core/utils/component.dart';
 import 'package:appstore/core/utils/shared_preferences.dart';
 import 'package:appstore/feature/boarding/data/model/model_pageview.dart';
 import 'package:appstore/feature/boarding/presentation/view/widget/custome_item.dart';
-import 'package:appstore/feature/auth/persentation/view/login_shoping.dart';
+import 'package:appstore/feature/auth/login/persentation/view/login_shoping.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -88,7 +88,7 @@ class OnBoarding extends StatelessWidget {
   void chickBord(context) {
     ShPreferences.savesetDataLoginSharedprefernec('isBoarding', true)
         .then((value) => {
-              if (value) {navigatorAndFinshed(context, LoginShopState())}
+              if (value) {navigatorAndFinshed(context, const LoginShopState())}
             });
   }
 }
