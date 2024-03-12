@@ -25,9 +25,9 @@ class AppStore extends StatelessWidget {
               ..uSerHome()
               ..userCategory()
               ..getFav()),
-        // BlocProvider(
-        //   create: (context) => LoginAndrCubit(),
-        // )
+        BlocProvider(
+          create: (context) => LoginAndrCubit(),
+        )
       ],
       child: BlocConsumer<CubitThemes, SuperChangeThemeState>(
         listener: (context, state) {},

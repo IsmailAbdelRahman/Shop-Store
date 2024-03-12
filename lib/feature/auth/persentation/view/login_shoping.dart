@@ -8,9 +8,12 @@ class LoginShopState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginAndrCubit(),
-      child: const BodyLogin(),
-    );
+    return
+
+        // BlocProvider(
+        //   create: (context) => LoginAndrCubit(),
+        //   child: const BodyLogin(),
+        // );
+        const BodyLogin();
   }
 }

@@ -24,7 +24,8 @@ class BodyLogin extends StatelessWidget {
           ShPreferences.savesetDataLoginSharedprefernec(
                   'token', state.s2.data!.token)
               .then((value) {
-            navigatorTo(context, const BottomNavigationBarView());
+            // navigatorTo(context, const BottomNavigationBarView());
+            navigatorAndFinshed(context, const BottomNavigationBarView());
 
             AppConstans.tokin1 = state.s2.data!.token!.toString();
           });

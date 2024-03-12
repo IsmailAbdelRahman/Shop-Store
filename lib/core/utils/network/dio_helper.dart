@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 //api   application programming interface
 
@@ -10,7 +12,14 @@ class DioHelper {
       baseUrl: 'https://student.valuxapps.com/api/',
       receiveDataWhenStatusError: true, /*receiveTimeout: 500 ,*/
       // headers: {  'Content-Type' : 'application/json'}
-    ));
+    ))
+      ..interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        compact: false,
+      ));
   }
 
   static Future<Response> get(
