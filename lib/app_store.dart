@@ -2,7 +2,7 @@ import 'package:appstore/core/utils/theming/app_themes.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit-change_theme/cubit_change_theme.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit-change_theme/state_change_theme.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/cubit.dart';
-import 'package:appstore/feature/auth/persentation/manger/login/lgin_andr_cubit.dart';
+import 'package:appstore/feature/auth/persentation/manger/login/login_andr_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
