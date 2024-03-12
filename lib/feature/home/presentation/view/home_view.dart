@@ -1,7 +1,7 @@
 import 'package:appstore/core/utils/component.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/cubit.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/state.dart';
-import 'package:appstore/feature/auth/login/data/model/model_login.dart';
+import 'package:appstore/feature/auth/data/model/model_login.dart';
 import 'package:appstore/feature/models/parthing_category.dart';
 import 'package:appstore/feature/search/presentation/view/shearch_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';

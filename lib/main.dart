@@ -4,8 +4,8 @@ import 'package:appstore/core/utils/networking/api_constants.dart';
 import 'package:appstore/core/utils/shared_preferences.dart';
 import 'package:appstore/core/widget/bottom_navigator_bar_app.dart';
 import 'package:appstore/feature/Shareit/bloc/Observer.dart';
+import 'package:appstore/feature/auth/persentation/view/login_shoping.dart';
 import 'package:appstore/feature/boarding/presentation/view/boarding_screen.dart';
-import 'package:appstore/feature/auth/login/persentation/view/login_shoping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
