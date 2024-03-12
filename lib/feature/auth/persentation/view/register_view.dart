@@ -1,53 +1,46 @@
 import 'package:appstore/core/utils/component.dart';
-import 'package:appstore/core/utils/end_Points.dart';
-import 'package:appstore/core/utils/shared_preferences.dart';
-import 'package:appstore/core/widget/bottom_navigator_bar_app.dart';
-import 'package:appstore/feature/Shareit/bloc/cubit_appstore/cubit.dart';
-import 'package:appstore/feature/registor_login/persentation/manger/login_r/lgin_andr_cubit.dart';
-import 'package:appstore/feature/registor_login/persentation/view/register_view.dart';
+import 'package:appstore/feature/auth/persentation/manger/login_r/lgin_andr_cubit.dart';
+import 'package:appstore/feature/auth/persentation/view/login_shoping.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BodyLogin extends StatelessWidget {
-  const BodyLogin({super.key});
+class RegistorView extends StatelessWidget {
+  const RegistorView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginAndrCubit, LoginAndrState>(
         listener: (context, state) {
-      if (state is SuccessLoginShopState) {
-        if (state.s2.status!) {
-          ShopCubit.get(context)
-              .uSerHome(tokin: state.s2.data!.token.toString());
-
-          ShPreferences.savesetDataLoginSharedprefernec(
-                  'token', state.s2.data!.token)
-              .then((value) {
-            navigatorTo(context, const BottomNavigationBarView());
-
-            AppConstans.tokin1 = state.s2.data!.token!.toString();
-          });
-
-          tost(state.s2.message.toString(), Colorenum.correct);
-        } else {
-          tost(state.s2.message.toString(), Colorenum.error);
-        }
-      }
+      state is SuccessRegisterState
+          ? tost(state.message.toString(),
+              state.state! ? Colorenum.correct : Colorenum.error)
+          : null;
     }, builder: (context, state) {
       LoginAndrCubit cubit = LoginAndrCubit.get(context);
 
-      if (state is LoadingLoginShopState) {
-        cubit.changeFalseanTrue = false;
-      } else if (state is SuccessLoginShopState) {
-        cubit.changeFalseanTrue = true;
-      }
-
       return Form(
-        key: cubit.globalFormLogin,
+        key: cubit.globalForm,
         child: Scaffold(
-          // appBar:AppBar(title: Text('Login')),
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(30),
+            child: AppBar(
+              //     elevation: 10,
 
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    navigatorTo(context, const LoginShopState());
+                  },
+                  icon: const Icon(Icons.arrow_back_outlined,
+                      textDirection: TextDirection.ltr),
+                  color: Colors.blue,
+                  alignment: AlignmentDirectional.bottomEnd,
+                )
+              ],
+              backgroundColor: Colors.transparent,
+            ),
+          ),
           body: SingleChildScrollView(
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -64,7 +57,7 @@ class BodyLogin extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Login',
+                    Text('Register',
                         style: Theme.of(context)
                             .textTheme
                             .displaySmall!
@@ -80,12 +73,17 @@ class BodyLogin extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         customTextFormField(
-                            controll: cubit.textEdControllerUSerLogin,
+                          controll: cubit.textEdControllerName,
+                          text: 'name',
+                          return1null: 'Enter Name place',
+                        ),
+                        customTextFormField(
+                            controll: cubit.textEdControllerUSer,
                             text: 'Enter Email',
                             return1null: 'Enter Email place',
                             prefixIconLeft: Icons.email_outlined),
                         customTextFormField(
-                          controll: cubit.textEdControllerPassLogin,
+                          controll: cubit.textEdControllerPass,
                           text: 'EnterPasswd',
                           return1null: 'Enter Passwd place',
                           prefixIconLeft: Icons.password_sharp,
@@ -95,22 +93,27 @@ class BodyLogin extends StatelessWidget {
                             cubit.shangeSufixRightVissPasswd();
                           },
                         ),
+                        customTextFormField(
+                          controll: cubit.textEdControllerPhone,
+                          text: 'Phone',
+                          return1null: 'Enter Phone place',
+                        ),
                         ConditionalBuilder(
-                          condition: state is! LoadingLoginShopState,
+                          condition: state is! LoadRegister,
                           builder: (context) => ElevatedButton(
                               onPressed: () {
-                                if (cubit.globalFormLogin.currentState!
-                                    .validate()) {
-                                  cubit.userLogin(
-                                      email:
-                                          cubit.textEdControllerUSerLogin.text,
-                                      passwd:
-                                          cubit.textEdControllerPassLogin.text);
+                                if (cubit.globalForm.currentState!.validate()) {
+                                  cubit.register(
+                                      name: cubit.textEdControllerName.text,
+                                      phone: cubit.textEdControllerPhone.text,
+                                      email: cubit.textEdControllerUSer.text,
+                                      password:
+                                          cubit.textEdControllerPass.text);
                                 }
                               },
-                              child: const Text('Login')),
-                          fallback: (context) =>
-                              const CircularProgressIndicator(),
+                              child: const Text('Register')),
+                          fallback: (context) => /*CircularProgressIndicator()*/
+                              const Text("data"),
                         ),
                       ],
                     ),

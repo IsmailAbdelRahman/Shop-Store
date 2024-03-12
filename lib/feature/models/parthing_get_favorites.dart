@@ -1,24 +1,24 @@
 //parsing
 
 class FavoritesModel {
-  bool? Status;
-  FavoritesData_Model? data;
+  bool? status;
+  FavoritesDataModel? data;
 
-  FavoritesModel.forjson(Map<String?, dynamic> Favorites) {
-    this.Status = Favorites['status'];
-    this.data = FavoritesData_Model.forjson(Favorites['data']);
+  FavoritesModel.forjson(Map<String?, dynamic> favorites) {
+    status = favorites['status'];
+    data = FavoritesDataModel.forjson(favorites['data']);
   }
 }
 
-class FavoritesData_Model {
-  int? current_page;
+class FavoritesDataModel {
+  int? currentPage;
   List<FavoritesModelData>? data2 = []; // عباره عن لسته من المابات
 
-  FavoritesData_Model.forjson(Map<String, dynamic> json) {
-    this.current_page = json['current_page'];
+  FavoritesDataModel.forjson(Map<String, dynamic> json) {
+    currentPage = json['current_page'];
 
     json['data'].forEach((elemint) {
-      this.data2!.add(FavoritesModelData.forJson(elemint));
+      data2!.add(FavoritesModelData.forJson(elemint));
     });
   }
 }
@@ -26,30 +26,30 @@ class FavoritesData_Model {
 class FavoritesModelData {
   int? id;
 
-  product_MData? Product;
+  ProductMData? product;
   FavoritesModelData.forJson(Map<String, dynamic> json) {
     //عباره عن مابات
     id = json['id'];
 
-    Product = product_MData.forjson(json['product']);
+    product = ProductMData.forjson(json['product']);
   }
 }
 
-class product_MData {
+class ProductMData {
   int? id;
-  dynamic? price;
-  dynamic? old_price;
+  dynamic price;
+  dynamic oldPrice;
   int? discount;
-  String? Image;
+  String? image;
   String? name;
   String? description;
-  product_MData.forjson(Map<String, dynamic> json) {
-    this.id = json["id"];
-    this.price = json["price"];
-    this.old_price = json["old_price"];
-    this.discount = json["discount"];
-    this.Image = json["image"];
-    this.name = json["name"];
-    this.description = json["description"];
+  ProductMData.forjson(Map<String, dynamic> json) {
+    id = json["id"];
+    price = json["price"];
+    oldPrice = json["old_price"];
+    discount = json["discount"];
+    image = json["image"];
+    name = json["name"];
+    description = json["description"];
   }
 }

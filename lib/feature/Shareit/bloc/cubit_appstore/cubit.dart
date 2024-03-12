@@ -2,7 +2,7 @@ import 'package:appstore/core/utils/network/dio_helper.dart';
 import 'package:appstore/core/utils/end_Points.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/state.dart';
 import 'package:appstore/feature/models/change_favorites.dart';
-import 'package:appstore/feature/registor_login/data/model/model_login.dart';
+import 'package:appstore/feature/auth/data/model/model_login.dart';
 import 'package:appstore/feature/models/fa.dart';
 import 'package:appstore/feature/models/get_profile.dart';
 

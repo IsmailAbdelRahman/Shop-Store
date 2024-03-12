@@ -1,7 +1,7 @@
 import 'package:appstore/core/utils/end_Points.dart';
 import 'package:appstore/core/utils/network/dio_helper.dart';
-import 'package:appstore/feature/registor_login/data/model/model_login.dart';
-import 'package:appstore/feature/registor_login/data/model/models_register.dart';
+import 'package:appstore/feature/auth/data/model/model_login.dart';
+import 'package:appstore/feature/auth/data/model/models_register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

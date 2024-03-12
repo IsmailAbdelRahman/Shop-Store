@@ -1,7 +1,7 @@
 import 'package:appstore/core/utils/component.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/cubit.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/state.dart';
-import 'package:appstore/feature/registor_login/data/model/model_login.dart';
+import 'package:appstore/feature/auth/data/model/model_login.dart';
 import 'package:appstore/feature/models/parthing_category.dart';
 import 'package:appstore/feature/search/presentation/view/shearch_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -50,6 +50,7 @@ class HomeView extends StatelessWidget {
                 ),
                 onPressed: () {
                   funLogOut(context);
+                  //  Navigator.pop(context);
                 }),
 
             //print('object');
@@ -104,7 +105,7 @@ class HomeView extends StatelessWidget {
                 children: [
                   Image(
                       image: NetworkImage(
-                          categoryModel.data!.data2![_].Image.toString())),
+                          categoryModel.data!.data2![_].image.toString())),
                   Container(
                       alignment: Alignment.topCenter,
                       width: 150,

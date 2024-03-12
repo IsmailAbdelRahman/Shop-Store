@@ -39,18 +39,18 @@ class GetFavoritesView extends StatelessWidget {
   Widget cateF(FavoritesModelData s1, context) {
     return ListTile(
       leading: Image(
-        image: NetworkImage(s1.Product!.Image.toString()),
+        image: NetworkImage(s1.product!.image.toString()),
         width: 100,
       ),
-      title: Text(s1.Product!.name.toString(), maxLines: 2),
+      title: Text(s1.product!.name.toString(), maxLines: 2),
       trailing: CircleAvatar(
           radius: 15,
-          backgroundColor: ShopCubit.get(context).fav[s1.Product!.id] ?? false
+          backgroundColor: ShopCubit.get(context).fav[s1.product!.id] ?? false
               ? Colors.blue
               : Colors.grey,
           child: IconButton(
             onPressed: () {
-              ShopCubit.get(context).postChangeColorFavorite(s1.Product!.id!);
+              ShopCubit.get(context).postChangeColorFavorite(s1.product!.id!);
             },
             icon: const Icon(
               Icons.favorite_outline,

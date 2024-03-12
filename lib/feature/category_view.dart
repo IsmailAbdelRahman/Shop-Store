@@ -33,7 +33,7 @@ class CategoryView extends StatelessWidget {
   Widget cateF(CategoryModelData s1) {
     return ListTile(
       leading: Image(
-        image: NetworkImage(s1.Image.toString()),
+        image: NetworkImage(s1.image.toString()),
         width: 100,
       ),
       title: Text(s1.name.toString()),
