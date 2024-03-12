@@ -1,5 +1,5 @@
-import 'package:appstore/core/utils/network/dio_helper.dart';
-import 'package:appstore/core/utils/end_Points.dart';
+import 'package:appstore/core/utils/networking/dio_helper.dart';
+import 'package:appstore/core/utils/networking/api_constants.dart';
 import 'package:appstore/feature/search/data/model/model_search.dart';
 import 'package:appstore/feature/search/presentation/manger/cubit_search/state_search.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +16,9 @@ class CubitSearch extends Cubit<StateSearch> {
   // ModelSearch? modelSearch;
   void postSearch({String text = " "}) {
     DioHelper.postData(
-            url: AppConstans.search,
+            url: ApiConstants.search,
             data: {"text": text},
-            token: AppConstans.tokin1)
+            token: ApiConstants.tokin1)
         .then((value) {
       //   print(value.data);
 

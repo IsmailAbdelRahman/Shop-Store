@@ -1,5 +1,5 @@
-import 'package:appstore/core/utils/end_Points.dart';
-import 'package:appstore/core/utils/network/dio_helper.dart';
+import 'package:appstore/core/utils/networking/api_constants.dart';
+import 'package:appstore/core/utils/networking/dio_helper.dart';
 import 'package:appstore/feature/auth/data/model/model_login.dart';
 import 'package:appstore/feature/auth/data/model/models_register.dart';
 import 'package:flutter/material.dart';
@@ -42,8 +42,8 @@ class LoginAndrCubit extends Cubit<LoginAndrState> {
   ////////////////////  غير مستخدمه
   void logOut() {
     DioHelper.postData(
-        url: AppConstans.postLogOut,
-        data: {"fcm_token": AppConstans.tokin1}).then((value) {
+        url: ApiConstants.postLogOut,
+        data: {"fcm_token": ApiConstants.tokin1}).then((value) {
       emit(SeccessfullLogOut());
       //  print(value.data);
     }).catchError((e) {});
@@ -57,7 +57,7 @@ class LoginAndrCubit extends Cubit<LoginAndrState> {
       required String email,
       required String phone,
       required String password}) {
-    DioHelper.postData(url: AppConstans.postRegister, data: {
+    DioHelper.postData(url: ApiConstants.postRegister, data: {
       "name": name,
       "phone": phone,
       "email": email,
@@ -79,7 +79,7 @@ class LoginAndrCubit extends Cubit<LoginAndrState> {
   userLogin({required String email, required String passwd}) {
     emit(LoadingLoginShopState());
     return DioHelper.postData(
-        url: AppConstans.login,
+        url: ApiConstants.login,
         data: {'email': email, 'password': passwd}).then((value) {
       // s1 =value.data['message']; //صيغه الماب دا الكي انا عاوز الكي ال اسمو مسيج من الماب
       s2 = ShopLoginModel.formJson(josn: value.data);

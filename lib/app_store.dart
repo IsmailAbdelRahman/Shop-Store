@@ -1,4 +1,4 @@
-import 'package:appstore/core/utils/themes/app_themes.dart';
+import 'package:appstore/core/utils/theming/app_themes.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit-change_theme/cubit_change_theme.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit-change_theme/state_change_theme.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/cubit.dart';

@@ -1,5 +1,5 @@
 import 'package:appstore/core/utils/component.dart';
-import 'package:appstore/core/utils/end_Points.dart';
+import 'package:appstore/core/utils/networking/api_constants.dart';
 import 'package:appstore/core/utils/shared_preferences.dart';
 import 'package:appstore/core/widget/bottom_navigator_bar_app.dart';
 import 'package:appstore/feature/Shareit/bloc/cubit_appstore/cubit.dart';
@@ -27,7 +27,7 @@ class BodyLogin extends StatelessWidget {
             // navigatorTo(context, const BottomNavigationBarView());
             navigatorAndFinshed(context, const BottomNavigationBarView());
 
-            AppConstans.tokin1 = state.s2.data!.token!.toString();
+            ApiConstants.tokin1 = state.s2.data!.token!.toString();
           });
 
           tost(state.s2.message.toString(), Colorenum.correct);

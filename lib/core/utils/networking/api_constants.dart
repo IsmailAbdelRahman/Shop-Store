@@ -1,6 +1,8 @@
 //dynamic   Tokin1  = Sh_Preferences.getDataLoginSharedprefernec(key: 'token');
 
-class AppConstans {
+class ApiConstants {
+  static const baseUrl = '';
+
   static dynamic tokin1 = "";
 
   static const login = 'login';
